@@ -1,9 +1,10 @@
 body {
-    background-color: bisque;
+  background-color: bisque;
 }
+
 .hello {
-    color: red;
-    background: url('./icon.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
+  color: red;
+  background: url('./icon.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
