@@ -1,4 +1,4 @@
-# Awesome-Books
+# Webpack Boilerplate
 <a name="readme-top"></a>
 
 <div align="center">
