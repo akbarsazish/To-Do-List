@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wbpack Exercise</title>
+    <title>To Do List</title>
 <script defer src="main.js"></script></head>
 <body>
-    <h1>Hello webpack!</h1>
+    <section class="container">
+        <div class="header">
+            <h4 class="tody-title"> Today's To Do </h4>
+        </div>
+        <div class="todo-body">
+            <div class="mb-3">
+            <input type="text" class="add-list-input" id="add-list" placeholder="Add your list ... ">
+            </div>
+            <ul id="todo-list"> </ul>
+        </div>
+        <footer class="footer"> <button class="clear-all-tasks"> Clear All Completed </button> </footer>
+    </section>
 </body>
 </html>
