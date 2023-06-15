@@ -1,8 +1,8 @@
-# Webpack Boilerplate
+# To Do List
 <a name="readme-top"></a>
 
 <div align="center">
-  <h3><b> Webpack Boilerplate </b></h3>
+  <h3><b> To Do List </b></h3>
 </div>
 
 # 📗 Table of Contents
@@ -29,7 +29,7 @@
 
 # 📖 [Portfoloi] <a name="about-project"></a>
 
-**[Portfoloi]**A webpack boilerplate is a pre-configured setup or template that provides a starting point for building web applications using webpack. It includes the necessary files, configuration settings, and folder structure to help developers quickly set up their projects and start working on their code.
+**[Portfoloi]**To-Do List is a web-based application designed to help individuals manage and organize their tasks effectively. It offers a user-friendly interface that allows users to create, track, and prioritize their to-do items conveniently.
 
 ## 🛠 Built With <a name="built-with"></a>
 
