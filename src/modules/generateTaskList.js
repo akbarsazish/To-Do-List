@@ -1,21 +1,39 @@
 // Array of to-do tasks
-const tasks = [
+let tasks = [
   {
-    description: 'Task 01',
+    description: '',
     completed: false,
     index: 1,
-  },
-  {
-    description: 'Task 2',
-    completed: true,
-    index: 2,
-  },
-  {
-    description: 'Task 3',
-    completed: false,
-    index: 3,
-  },
+  }
 ];
+
+tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+// Function to add a new task
+function addTask() {
+  var inputField = document.getElementById("add-list");
+  var inputValue = inputField.value;
+
+  // Create a new task object
+  var newTask = {
+    description: inputValue,
+    completed: false,
+    index: tasks.length + 1,
+  };
+
+  // Add the new task to the tasks array
+  tasks.push(newTask);
+
+  // Save the updated tasks array to local storage
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  // Clear the input field
+  inputField.value = "";
+
+  // Update the task list
+  generateTaskList();
+}
+
 
 // Function to generate HTML list items for tasks
 function generateTaskList() {
@@ -37,6 +55,15 @@ function generateTaskList() {
     todoList.innerHTML += html;
   });
 }
+
+
+ // Add event listener to handle Enter key press
+ var inputField = document.getElementById("add-list");
+ inputField.addEventListener("keydown", function (event) {
+   if (event.key === "Enter") {
+     addTask();
+   }
+ });
 
 // Render the dynamically created list on page load
 window.addEventListener('load', generateTaskList);

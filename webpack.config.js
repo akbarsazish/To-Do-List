@@ -20,7 +20,12 @@ module.exports = {
   },
 
   module: {
-    rules: [{
+    rules: [
+    {
+        test: /\.(woff(2)?|eot|ttf|otf|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        type: 'asset/inline',
+    },
+    {
       test: /\.css$/i,
       use: ['style-loader', 'css-loader'],
     },
