@@ -7,16 +7,19 @@
 <script defer src="main.js"></script></head>
 <body>
     <section class="container">
-        <div class="header">
-            <h4 class="tody-title"> Today's To Do </h4> 
-        </div>
-        <div class="todo-body">
-            <div class="mb-1">
-               <input type="text" class="add-list-input" id="add-list" placeholder="Add your list ... "> 
+            <div class="header">
+                <h4 class="tody-title"> Today's To Do  <i id="refresh" class="fa fa-sync"></i> </h4> 
             </div>
-            <ul id="todo-list"> </ul>
-        </div>
-        <footer class="footer"> <button class="clear-all-tasks"> Clear All Completed </button> </footer>
+            <div class="todo-body">
+                <form id="todoForm">
+                    <div class="mb-1">
+                        <input type="text" name="newtodo" class="form-control newtodo" id="newtodo" placeholder="Add your list ... "> 
+                     </div>
+                </form>
+                <span id="errorMessag"></span>
+                <ul id="todo-list"> </ul>
+            </div>
+            <footer class="footer"> <button class="clear-all-tasks" id="clear-all"> Clear All Completed </button> </footer>
     </section>
 </body>
 </html>

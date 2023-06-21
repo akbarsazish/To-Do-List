@@ -1,70 +1,100 @@
-// Array of to-do tasks
-let tasks = [
-  {
-    description: '',
-    completed: false,
-    index: 1,
-  }
-];
+const form = document.getElementById('todoForm');
+const todoInput = document.getElementById('newtodo');
+const todosListElement = document.getElementById('todo-list');
 
-tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+// vars 
+let todos = [];
+let EditTodoId = -1;
 
-// Function to add a new task
-function addTask() {
-  var inputField = document.getElementById("add-list");
-  var inputValue = inputField.value;
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    saveTodo();
+    renderTodos();
+})
 
-  // Create a new task object
-  var newTask = {
-    description: inputValue,
-    completed: false,
-    index: tasks.length + 1,
-  };
+// save todo 
+function saveTodo(){
+  const todoValue = todoInput.value;
 
-  // Add the new task to the tasks array
-  tasks.push(newTask);
+// check if the todo is not empty
+ const isEmpty = todoValue === '';
 
-  // Save the updated tasks array to local storage
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+ // check for dublication 
+ const isDublicate = todos.some((todo) =>  todo.value.toUpperCase() === todoValue.toUpperCase())
 
-  // Clear the input field
-  inputField.value = "";
+ if(isEmpty){
+    alert("the to do is empty")
+    }else if(isDublicate){
+        alert("todo already exist")
+    }else {
+        if(EditTodoId >= 0){
+           todos = todos.map((todo, index) => ({
+                ...todo,
+                value: index === EditTodoId ? todoValue : todo.value
+            }));
+            EditTodoId = -1;
+        }else {
+        todos.push( {
+            value: todoValue,
+            checked: false,
+            color: '#' + Math.floor(Math.random() * 16777215).toString(16)
+          })
+        }
+        todoInput.value = '';
+    } 
+}
 
-  // Update the task list
-  generateTaskList();
+// renderTodos
+function renderTodos () {
+    todosListElement.innerHTML = '';
+  todos.forEach ((todo, index) => {
+      todosListElement.innerHTML += `
+        <div class="todo" id="${index}">
+           ${index+1}  <input type="checkbox" id='myCheckbox' ${todo.checked ? 'checked' : 'unchecked'} style="color:${todo.color}" data-action='check'>
+            <p class="checked description" data-action='check'> ${todo.value} </p>
+                <i id='editBtn' class='fa fa-edit editBtn' data-action='edit'></i>  &nbsp;  
+                <i class='fa fa-trash deleteBtn' data-action='delete'> </i> 
+        </div>
+   `})
 }
 
 
-// Function to generate HTML list items for tasks
-function generateTaskList() {
-  const todoList = document.getElementById('todo-list');
+// event listern for all target element
+todosListElement.addEventListener('click', (event) =>{
+    const target = event.target;
+    const parentElement = target.parentNode;
 
-  todoList.innerHTML = '';
+    if(parentElement.className != 'todo') return;
+    const todo = parentElement;
+    const todoId = Number(todo.id);
 
-  tasks.forEach((task) => {
-    const completedClass = task.completed ? 'completed' : '';
-    const checking = task.completed ? 'checked' : 'unchecked';
-    const html = `
-    <li class="todo-item">
-      <input type="checkbox" class="checkbox-input" ${checking}>
-       <div id="task-description" class="task-description ${completedClass}"> ${task.description} </div>
-       <span class="drag-to-order"> &#x22EE; </span>
-    </li>
-  `;
+    const action = target.dataset.action;
 
-    todoList.innerHTML += html;
-  });
+    action === 'check' && checkTodo(todoId)
+    action === 'edit' && editTodo(todoId)
+    action === 'delete' && deleteTodo(todoId)
+})
+
+// function check todo
+function checkTodo (todoId){
+    todos = todos.map((todo, index) =>({
+        ...todo,
+        checked: index ===todoId ? !todo.checked : todo.checked,
+    }));
+
+ renderTodos();
 }
 
+// function edit to do 
+function editTodo(todoId){
+    todoInput.value = todos[todoId].value;
+    EditTodoId = todoId;
+}
 
- // Add event listener to handle Enter key press
- var inputField = document.getElementById("add-list");
- inputField.addEventListener("keydown", function (event) {
-   if (event.key === "Enter") {
-     addTask();
-   }
- });
+// function delete tod 
+function deleteTodo (todoId){
+    todos = todos.filter((todo, index) => index !== todoId);
+    EditTodoId = -1;
 
-// Render the dynamically created list on page load
-window.addEventListener('load', generateTaskList);
-export default generateTaskList;
+    renderTodos();
+}
