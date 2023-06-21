@@ -42,11 +42,23 @@ const saveTodo = ()=> {
         })
     
     localStorage.setItem("todoLists", JSON.stringify(todoLists));
-
+    displayTodoList ();
     todoInput.value = '';
 }
 
+const displayTodoList = () => {
+    todosListParent.innerHTML = '';
+    todoLists.forEach ((todo, index) => {
 
+        todosListParent.innerHTML += `
+          <div class="todo" id="${index}">    
+              <input type="checkbox" id='myCheckbox-${index}' data-action='check'> 
+              <p class="description ${todo.checked ? 'completed' : ''} " data-action='check'> ${todo.value} </p>
+              <i id='editBtn' class='fa fa-edit editBtn' data-action='edit'></i>  &nbsp;  
+              <i class='fa fa-trash deleteBtn' data-action='delete'> </i> 
+          </div>
+     `})
+}
 
 window.onload = saveTodo();
 
