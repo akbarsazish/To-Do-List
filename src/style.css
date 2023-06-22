@@ -73,7 +73,7 @@
   width: 5%;
 }
 
-.completed {
+.taskComplet {
   text-decoration: line-through;
 }
 
