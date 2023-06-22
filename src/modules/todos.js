@@ -1,8 +1,6 @@
 const todosListParent = document.getElementById('todo-list');
 
-export let todoLists = [];
-
-todoLists = JSON.parse(localStorage.getItem('todoLists')) || [];
+export const todoLists = JSON.parse(localStorage.getItem('todoLists')) || [];
 
 // When the checkbox is checked it add taskcomplet class and vs
 todosListParent.addEventListener('change', (event) => {
@@ -19,6 +17,7 @@ todosListParent.addEventListener('change', (event) => {
 // Define the removeTodo function
 const removeTodo = (index) => {
   todoLists.splice(index, 1);
+  // eslint-disable-next-line no-use-before-define
   displayTodoList();
   localStorage.setItem('todoLists', JSON.stringify(todoLists));
 };
@@ -26,7 +25,8 @@ const removeTodo = (index) => {
 // Attach event listener using event delegation
 todosListParent.addEventListener('click', (event) => {
   if (event.target.classList.contains('deleteBtn')) {
-    const index = parseInt(event.target.id.split('-')[1]);
+    // eslint-disable-next-line no-use-before-define
+    const index = parseInt(event.target.id.split('-', 2)[1], 10);
     removeTodo(index);
   }
 });
@@ -34,7 +34,7 @@ todosListParent.addEventListener('click', (event) => {
 // add event listener to editBtn
 todosListParent.addEventListener('click', (e) => {
   if (e.target.classList.contains('editBtn')) {
-    const todoIndex = e.target.id.split('-')[1];
+    const todoIndex = e.target.id.split('-', 2)[1];
     const todo = todoLists[todoIndex];
     const todoElement = document.getElementById(todoIndex);
     const descriptionElement = todoElement.querySelector('.description');
@@ -55,12 +55,12 @@ todosListParent.addEventListener('click', (e) => {
 });
 
 // display the task in the browser
- export const displayTodoList = () => {
+export const displayTodoList = () => {
   todosListParent.innerHTML = '';
   todoLists.forEach((todo, index) => {
     todosListParent.innerHTML += `
       <div class="todo" id="${index}">
-          <input type="checkbox" id='myCheckbox-${index}'>
+          <input class='checkbox' type="checkbox" id='myCheckbox-${index}'>
           <p class="description ${todo.checked ? 'completed' : ''}">${todo.description}</p>
           <i id='editBtn-${index}' class='fa fa-edit editBtn'></i> &nbsp; &nbsp;
           <i id='deleteBtn-${index}' class='fa fa-trash deleteBtn'></i>

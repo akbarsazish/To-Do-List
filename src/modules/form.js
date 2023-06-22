@@ -7,7 +7,8 @@ const errorMessag = document.getElementById('errorMessag');
 const todosListParent = document.getElementById('todo-list');
 
 // Define the removeTodo function
-const removeTodo = (index) => {
+// eslint-disable-next-line no-use-before-define
+const removeTodo = (index) => { // eslint-disable-line
   todoLists.splice(index, 1);
   displayTodoList();
   localStorage.setItem('todoLists', JSON.stringify(todoLists));
@@ -40,12 +41,8 @@ todosListParent.addEventListener('click', (e) => {
 const saveTodo = (todosListParent) => {
   const todoValue = todoInput.value;
 
-  let index = todoLists.length;
-  todoLists.push({
-    index: index,
-    description: todoValue,
-    completed: false,
-  });
+  const index = todoLists.length;
+  todoLists.push({ index, description: todoValue, completed: false });
 
   localStorage.setItem('todoLists', JSON.stringify(todoLists));
   todoInput.value = '';
@@ -54,7 +51,7 @@ const saveTodo = (todosListParent) => {
 };
 
 // validate the form if it is empty the form will not submit
-let formValidation = (todosListParent) => {
+const formValidation = (todosListParent) => {
   if (todoInput.value === '') {
     errorMessag.innerHTML = "it can't be blank!!!";
   } else {

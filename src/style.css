@@ -1,4 +1,4 @@
-.container{
+.container {
   width: 40%;
   margin: 0 auto;
   padding: 1%;
@@ -7,13 +7,14 @@
   margin-top: 33px;
   position: relative;
 }
+
 .tody-title {
   border-bottom: 1px solid #ccc;
 }
 
 #todo-list {
   padding-left: 1px !important;
-  margin: 6px 1px;
+  margin: 5px;
 }
 
 .newtodo {
@@ -44,10 +45,6 @@
   display: flex;
 }
 
-.description {
-  margin-bottom: 1px !important;
-}
-
 .todo-item {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -56,21 +53,23 @@
   list-style-type: none;
 }
 
-.myCheckbox {
-  width: 5%;
+.checkbox {
+  width: 20px;
+  margin: 5px;
 }
 
 .description {
   width: 82%;
-  margin-top: 1px;
+  margin-top: 8px;
+  margin-bottom: 1px;
+  font-size: 16px;
 }
 
-.editBtn {
-  width: 5%;
-}
-
+.editBtn,
 .deleteBtn {
   width: 5%;
+  margin: 8px;
+  font-size: 18px;
 }
 
 .taskComplet {
@@ -91,12 +90,12 @@
 }
 
 .editBtn {
-  color:#ffbf35 ;
+  color: #ffbf35;
   cursor: pointer;
 }
 
 .deleteBtn {
-  color:#ec2947 ;
+  color: #ec2947;
   cursor: pointer;
 }
 
@@ -113,8 +112,9 @@
   margin: 15px 5px;
 }
 
-.myCheckbox, .description {
-  display:  inline-block;
+.myCheckbox,
+.description {
+  display: inline-block;
 }
 
 #errorMessag {
@@ -123,9 +123,9 @@
 
 .editInput {
   padding: 5px;
-  border: none;
   width: 78%;
   border: none;
   outline: none;
   border-bottom: 1px solid gray;
+  font-size: 14px;
 }
