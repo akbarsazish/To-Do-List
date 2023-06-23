@@ -20,13 +20,18 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.css$/i,
-      use: ['style-loader', 'css-loader'],
-    },
-    {
-      test: /\.(png|svg|jpg|jpeg|gif)$/i,
-      type: 'asset/resource',
-    }],
+    rules: [
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        type: 'asset/inline',
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      }],
   },
 };
