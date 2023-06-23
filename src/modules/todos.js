@@ -39,6 +39,22 @@ todosListParent.addEventListener('click', (event) => {
   }
 });
 
+todosListParent.addEventListener('change', (event) => {
+  if (event.target.type === 'checkbox') {
+    const taskDesc = event.target.parentElement.querySelector('p');
+    const todoIndex = parseInt(event.target.dataset.index); 
+
+    if (event.target.checked) {
+      taskDesc.classList.add('taskComplet');
+    } else {
+      taskDesc.classList.remove('taskComplet');
+    }
+
+    todoLists[todoIndex].completed = event.target.checked; 
+    localStorage.setItem('todoLists', JSON.stringify(todoLists));
+  }
+});
+
 export const displayTodoList = () => {
   todosListParent.innerHTML = '';
   todoLists.forEach((todo, index) => {
@@ -55,11 +71,7 @@ export const displayTodoList = () => {
 
     const descriptionElement = document.createElement('p');
     descriptionElement.id = `description-${index}`;
-    if (todo.checked) {
-      descriptionElement.classList.add('description', 'completed');
-    } else {
-      descriptionElement.classList.add('description');
-    }
+    descriptionElement.classList.add('content');
     descriptionElement.innerText = todo.description;
     todoElement.appendChild(descriptionElement);
 
@@ -89,7 +101,7 @@ export const displayTodoList = () => {
           if (e.keyCode === 13) {
             todo.description = inputElement.value;
             const newParagraph = document.createElement('p');
-            newParagraph.classList.add('description');
+            newParagraph.classList.add('content');
             newParagraph.innerText = todo.description;
             todoElement.replaceChild(newParagraph, inputElement);
             document.removeEventListener('keyup', handleKeyUp);
