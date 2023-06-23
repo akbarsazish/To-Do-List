@@ -39,6 +39,7 @@ todosListParent.addEventListener('click', (event) => {
   }
 });
 
+// event lister for checking the completed task
 todosListParent.addEventListener('change', (event) => {
   if (event.target.type === 'checkbox') {
     const taskDesc = event.target.parentElement.querySelector('p');
@@ -55,6 +56,8 @@ todosListParent.addEventListener('change', (event) => {
   }
 });
 
+
+// return the html content and load on webpage 
 export const displayTodoList = () => {
   todosListParent.innerHTML = '';
   todoLists.forEach((todo, index) => {
@@ -84,10 +87,9 @@ export const displayTodoList = () => {
     deleteBtn.id = `deleteBtn-${index}`;
     deleteBtn.classList.add('fa', 'fa-trash', 'deleteBtn');
     todoElement.appendChild(deleteBtn);
-
     todosListParent.appendChild(todoElement);
 
-    // Add event listener directly to the edit button
+    // Add event listener to the edit button
     editBtn.addEventListener('click', () => {
       const paragraph = document.getElementById(`description-${index}`);
       if (paragraph) {
