@@ -18,8 +18,16 @@ todosListParent.addEventListener('change', (event) => {
 const removeTodo = (index) => {
   todoLists.splice(index, 1);
   // eslint-disable-next-line no-use-before-define
+  updateTodoIndexes();
+  // eslint-disable-next-line no-use-before-define
   displayTodoList();
   localStorage.setItem('todoLists', JSON.stringify(todoLists));
+};
+
+const updateTodoIndexes = () => {
+  todoLists.forEach((todo, index) => {
+    todo.index = index + 1;
+  });
 };
 
 // Attach event listener using event delegation
@@ -31,42 +39,74 @@ todosListParent.addEventListener('click', (event) => {
   }
 });
 
-// add event listener to editBtn
-todosListParent.addEventListener('click', (e) => {
-  if (e.target.classList.contains('editBtn')) {
-    const todoIndex = e.target.id.split('-', 2)[1];
-    const todo = todoLists[todoIndex];
-    const todoElement = document.getElementById(todoIndex);
-    const descriptionElement = todoElement.querySelector('.description');
-    const inputElement = document.createElement('input');
-    inputElement.setAttribute('class', 'editInput');
-    inputElement.value = todo.description;
-    todoElement.replaceChild(inputElement, descriptionElement);
-    inputElement.addEventListener('keyup', (e) => {
-      if (e.keyCode === 13) {
-        todo.description = inputElement.value;
-        const newDescriptionElement = document.createElement('p');
-        newDescriptionElement.classList.add('description');
-        newDescriptionElement.innerText = todo.description;
-        todoElement.replaceChild(newDescriptionElement, inputElement);
-      }
-    });
-  }
-});
-
-// display the task in the browser
 export const displayTodoList = () => {
   todosListParent.innerHTML = '';
   todoLists.forEach((todo, index) => {
-    todosListParent.innerHTML += `
-      <div class="todo" id="${index}">
-          <input class='checkbox' type="checkbox" id='myCheckbox-${index}'>
-          <p class="description ${todo.checked ? 'completed' : ''}">${todo.description}</p>
-          <i id='editBtn-${index}' class='fa fa-edit editBtn'></i> &nbsp; &nbsp;
-          <i id='deleteBtn-${index}' class='fa fa-trash deleteBtn'></i>
-      </div>
-    `;
+    const todoElement = document.createElement('div');
+    todoElement.classList.add('todo');
+    todoElement.id = index;
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `myCheckbox-${index}`;
+    checkbox.classList.add('checkbox');
+    todoElement.appendChild(checkbox);
+
+    const descriptionElement = document.createElement('p');
+    descriptionElement.id = `description-${index}`;
+    if (todo.checked) {
+      descriptionElement.classList.add('description', 'completed');
+    } else {
+      descriptionElement.classList.add('description');
+    }
+    descriptionElement.innerText = todo.description;
+    todoElement.appendChild(descriptionElement);
+
+    const editBtn = document.createElement('i');
+    editBtn.id = `editBtn-${index}`;
+    editBtn.classList.add('fa', 'fa-edit', 'editBtn');
+    todoElement.appendChild(editBtn);
+
+    const deleteBtn = document.createElement('i');
+    deleteBtn.id = `deleteBtn-${index}`;
+    deleteBtn.classList.add('fa', 'fa-trash', 'deleteBtn');
+    todoElement.appendChild(deleteBtn);
+
+    todosListParent.appendChild(todoElement);
+
+    // Add event listener directly to the edit button
+    editBtn.addEventListener('click', () => {
+      const paragraph = document.getElementById(`description-${index}`);
+      if (paragraph) {
+        const inputElement = document.createElement('input');
+        inputElement.classList.add('editInput');
+        inputElement.id = 'editInput';
+        inputElement.value = todo.description;
+        todoElement.replaceChild(inputElement, paragraph);
+
+        const handleKeyUp = (e) => {
+          if (e.keyCode === 13) {
+            todo.description = inputElement.value;
+            const newParagraph = document.createElement('p');
+            newParagraph.classList.add('description');
+            newParagraph.innerText = todo.description;
+            todoElement.replaceChild(newParagraph, inputElement);
+            document.removeEventListener('keyup', handleKeyUp);
+
+            // eslint-disable-next-line no-use-before-define
+            updateLocalStorage();
+          }
+        };
+
+        document.addEventListener('keyup', handleKeyUp);
+      }
+    });
   });
+};
+
+// Function to update localStorage
+const updateLocalStorage = () => {
+  localStorage.setItem('todoLists', JSON.stringify(todoLists));
 };
 
 // Call displayTodoList initially or wherever appropriate in your code
