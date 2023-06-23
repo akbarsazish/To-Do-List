@@ -50,6 +50,7 @@ export const displayTodoList = () => {
     checkbox.type = 'checkbox';
     checkbox.id = `myCheckbox-${index}`;
     checkbox.classList.add('checkbox');
+    checkbox.dataset.index = index;
     todoElement.appendChild(checkbox);
 
     const descriptionElement = document.createElement('p');
