@@ -43,7 +43,7 @@ todosListParent.addEventListener('click', (event) => {
 todosListParent.addEventListener('change', (event) => {
   if (event.target.type === 'checkbox') {
     const taskDesc = event.target.parentElement.querySelector('p');
-    const todoIndex = parseInt(event.target.dataset.index); 
+    const todoIndex = parseInt(event.target.dataset.index, 10);
 
     if (event.target.checked) {
       taskDesc.classList.add('taskComplet');
@@ -51,13 +51,12 @@ todosListParent.addEventListener('change', (event) => {
       taskDesc.classList.remove('taskComplet');
     }
 
-    todoLists[todoIndex].completed = event.target.checked; 
+    todoLists[todoIndex].completed = event.target.checked;
     localStorage.setItem('todoLists', JSON.stringify(todoLists));
   }
 });
 
-
-// return the html content and load on webpage 
+// return the html content and load on webpage
 export const displayTodoList = () => {
   todosListParent.innerHTML = '';
   todoLists.forEach((todo, index) => {
@@ -76,6 +75,12 @@ export const displayTodoList = () => {
     descriptionElement.id = `description-${index}`;
     descriptionElement.classList.add('content');
     descriptionElement.innerText = todo.description;
+
+    if (todo.completed) {
+      checkbox.checked = true;
+      descriptionElement.classList.add('taskComplet');
+    }
+
     todoElement.appendChild(descriptionElement);
 
     const editBtn = document.createElement('i');
