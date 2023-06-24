@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+<script defer src="main.js"></script></head>
+<body>
+    <section class="container">
+            <div class="header">
+                <h4 class="tody-title"> Today's To Do  <i id="refresh" class="fa fa-sync"></i> </h4> 
+            </div>
+            <div class="todo-body">
+                <form id="todoForm">
+                    <div class="mb-1">
+                        <input type="text" name="newtodo" class="form-control newtodo" id="newtodo" placeholder="Add your list ... " autofocus> 
+                     </div>
+                </form>
+                <span id="errorMessag"></span>
+                <ul id="todo-list"> </ul>
+            </div>
+            <footer class="footer"> <button class="clear-all-tasks" id="clear-all"> Clear All Completed </button> </footer>
+    </section>
+</body>
+</html>
