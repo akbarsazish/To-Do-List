@@ -5,27 +5,29 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build",
     "build": "webpack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/akbarsazish/Webpack-Boilerplate.git"
+    "url": "git+https://github.com/akbarsazish/To-Do-List.git"
   },
   "keywords": [],
   "author": "Ali Akbar Sazish",
   "license": "ISC",
+  "homepage": "https://akbarsazish.github.io/To-Do-List",
   "bugs": {
-    "url": "https://github.com/akbarsazish/Webpack-Boilerplate/issues"
+    "url": "https://github.com/akbarsazish/To-Do-List/issues"
   },
-  "homepage": "https://github.com/akbarsazish/Webpack-Boilerplate#readme",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "css-loader": "^6.8.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.27.5",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.3",
     "style-loader": "^3.3.3",
     "stylelint": "^13.13.1",
